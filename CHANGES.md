@@ -1,5 +1,37 @@
 # Changes
 
+## 1.5.4 — Wirely in Spanish, German and Japanese
+- **New Language menu** (between View and Help) in the desktop app and on the website: choose English, Español,
+  Deutsch or 日本語. The whole program changes straight away, with no restart, and your choice is remembered
+  (on the website you can also use `?lang=ja`, `?lang=de` or `?lang=es` in the address).
+- **Everything is translated:** menus, toolbar tips, the parts gallery (names, categories and descriptions),
+  the properties dialogs, readings and hover text, the graph, the shortcut list, the About box, status messages,
+  the messages that explain why a part has failed, the 35 example circuits (names and their notes), and the
+  website's start-up and error messages. Qt's own buttons and dialogs (Open, Save, Cancel …) follow too.
+- **Saved circuits don't depend on the language.** Parts, settings and choices (such as an LED's colour) are saved
+  the same way whatever language you were using, so a circuit made in German opens fine in Japanese or English.
+- A part's choices, such as the LED colour, are now also translated where they are shown beside the part.
+- Behind the scenes: the English text in the code is the key to a catalogue file per language
+  (`wirely/locale/es.json`, `de.json`, `ja.json`); anything without a translation simply shows in English.
+  `python tools/i18n.py` lists anything missing or broken in a catalogue, and a new test fails if one is incomplete.
+  The website and the installers include the catalogues.
+- Failure messages now decide "broken" from the part's real state rather than from English words, so they colour
+  correctly in every language.
+- The translations are new; if you spot a wrong or awkward phrase, please open an issue.
+
+## 1.5.3 — Readings that make sense for capacitors, inductors and transistors
+- **Capacitors no longer show power.** A capacitor charging or discharging takes in or gives back energy but
+  doesn't turn any of it into heat, so the "mW" reading beside it (voltage × current) was misleading. An ideal
+  capacitor now shows only its voltage and current.
+- **Inductors show only what they really dissipate** (the small loss in the coil), not the energy going into and
+  out of their magnetic field.
+- **MOSFETs show their drain current.** The reading used to be the gate's voltage and current, which is always
+  about 0 A, so a MOSFET switching a motor appeared to pass nothing. It now shows the voltage across the MOSFET
+  (drain to source) and the current through it (the drain current).
+- **NPN and PNP transistors** likewise show the voltage from collector to emitter and the collector current,
+  instead of the base's.
+- New test covering all of the above.
+
 ## 1.5.2 — US symbols, PWM looks steady even when the simulation can't keep up, and fast switching runs faster
 - **New address: https://wirely-app.github.io/** (code: github.com/wirely-app/wirely-app.github.io). The old
   address forwards there, keeping shared links working and bringing along unsaved work the browser kept.
